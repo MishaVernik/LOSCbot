@@ -28,8 +28,8 @@ def get_text_messages(message):
     global TIMES_WAKE_UP
     global_bots +=1
 
-    now = datetime.datetime.now()
-    bot.send_message(message.chat.id, str(now.minute))
+   # now = datetime.datetime.now()
+   # bot.send_message(message.chat.id, str(now.minute))
     cnt_wake_up_0 = 1
     cnt_wake_up_1 = 0
     if message.text == "/start":
