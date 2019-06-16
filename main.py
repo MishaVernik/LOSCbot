@@ -1,9 +1,26 @@
 import telebot
 import datetime
+import os
+from flask import Flask, request
 
-bot = telebot.TeleBot('830999920:AAFyyAO5ZIJ7sYQFJGQA9QmF201KWnObHNc')
+TOKEN = '830999920:AAFyyAO5ZIJ7sYQFJGQA9QmF201KWnObHNc'
+bot = telebot.TeleBot(TOKEN)
+
 global_bots = 0
 TIMES_WAKE_UP = 4
+server = Flask(__name__)
+
+@server.route('/' + TOKEN, methods=['POST'])
+def getMessage():
+    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    return "!", 200
+
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://evening-tor-60826.herokuapp.com/' + TOKEN)
+    return "!", 200
+
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
@@ -21,13 +38,13 @@ def get_text_messages(message):
             now = datetime.datetime.now()
             #bot.send_message(message.chat.id, str(now.hour))
             i +=1
-            if (int(now.hour) + 3)% 24 == 0 and int(now.minute) %2 == 0 and int(now.second) < 20:
+            if (int(now.hour) + 3)% 24 == 1 and int(now.minute) %2 == 0 and int(now.second) < 20:
                 print("OKAY")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ПОДЪЕМ!")
                 cnt_wake_up_0 = 1
                 cnt_wake_up_1 = 0
-            if (int(now.hour) + 3 )% 24 == 0 and int(now.minute) %2 == 0 and int(now.second) < 20:
+            if (int(now.hour) + 3 )% 24 == 1 and int(now.minute) %2 == 1 and int(now.second) < 20:
                 print("OKAY1")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ОТБОЙ!")
@@ -35,4 +52,9 @@ def get_text_messages(message):
                 cnt_wake_up_1 = 1
 
 if __name__ == '__main__':
+    server.debug = True
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
     bot.polling(none_stop=True, interval=0)
+
+
+
