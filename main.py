@@ -19,11 +19,11 @@ def get_text_messages(message):
             now = datetime.datetime.now()
             #bot.send_message(message.chat.id, str(now.hour))
             i +=1
-            if (int(now.hour) + 3 )% 23== 0 and int(now.minute) %2 == 1 and int(now.second) < 20:
+            if (int(now.hour) + 3 )% 24 == 0 and int(now.minute) %2 == 1 and int(now.second) < 20:
                 print("OKAY")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ПОДЪЕМ!")
-            if (int(now.hour) + 3 )% 23 and int(now.minute) %2 == 0 and int(now.second) < 20:
+            if (int(now.hour) + 3 )% 24 == 1 and int(now.minute) %2 == 0 and int(now.second) < 20:
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ОТБОЙ!")
 
