@@ -12,6 +12,8 @@ NAMES = ["Миша", "Бодя", "Люся", "Варя", "Егор", "Артём
 WORDS = ["че че","ты че э", "бе да ме", "ща на бутылку посажу", "копать лопать", "ха, а ты смИшной", "Пац, ты не понял?", "Ой ты милаха)", "Цемик", "Лайк и подписочка", "Лайк", "Просто киця"]
 GREETS = ["Приветули", "Утро утро добро", "Дароу", "Привет.", "ДАРОВА", "Хай", "А на зарядку?", "Доброе)", "Привет)", "Приветик)"]
 MEMES = []
+for _ in range(30):
+    MEMES.append( "/Memes/"+ str(_) + ".jpg")
 CUTES = ["Ты чудо)", "У тебя все выйдет", "Уряяя", "Так держать!", "Поднять щиты!!!", "Ты готов", "Если не ты, то кто?", "Герой", "3 богатыря с тобой", "Оленей больше", "Спасибо что живой"]
 global_bots = 0
 TIMES_WAKE_UP = 4
@@ -58,7 +60,8 @@ def get_text_messages(message):
         if (len(MEMES) == 0):
             bot.send_message(message.chat.id, "эх, пусто...")
         else:
-            bot.send_message(message.chat.id, MEMES[randint(0, len(MEMES))])
+            photo = open(MEMES[randint(0, len(MEMES))], 'rb')
+            bot.send_photo(message.chat.id, photo)
     if message.text == "на лицо пжлста":
         photo = open('food.jpg', 'rb')
         bot.send_photo(message.chat.id, photo)
@@ -72,12 +75,17 @@ def get_text_messages(message):
         times = [0,0,0,0,0,1,0,0,0,0,0,0]
         boolVAR = False
         boolT = True
+        timeBool = True
         while True:
             now = datetime.datetime.now()
             if (int(now.minute) + 1) % 20 == 0:
                 boolT = True
-            if int(now.second) % 30 == 0:
+            if int(now.second) % 30 == 0 and timeBool == True:
                 print(str(global_bots) + ": ----BOTS \n Time: " + str(now))
+                timeBool = False
+            if int(now.second) % 30 != 0 and timeBool == False:
+                timeBool = True
+
             #bot.send_message(message.chat.id, str(now.hour))
             if (int(now.hour) + 3) % 24 > 7 and int(now.minute) % 50 == 0 and boolT == True and int(now.hour) % 2 == 0:
                 print("COMPLIMENTS")
