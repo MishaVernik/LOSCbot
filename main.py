@@ -9,7 +9,10 @@ bot = telebot.TeleBot(TOKEN)
 COMPLIMENTS = ["лучший", "ТОП", "ТОПЧИК", "огонь", "красавчик", "мыло", "ЛОСК", "классный", "садись на бутылку", "шутник"]
 NAMES = ["Миша", "Бодя", "Люся", "Варя", "Егор", "Артём", "Даня", "Саня", "Дима", "Женя", "Андрей", "Макс", "Ваня", "Маша", "Наташа", "Настя", "ЛОСК", "ЛОСК"
     ,"Иванка", "Серёга"]
-WORDS = ["че че","ты че э", "бе да ме", "ща на бутылку посажу", "копать лопать", "ха, а ты смИшной"]
+WORDS = ["че че","ты че э", "бе да ме", "ща на бутылку посажу", "копать лопать", "ха, а ты смИшной", "Пац, ты не понял?", "Ой ты милаха)", "Цемик", "Лайк и подписочка", "Лайк", "Просто киця"]
+GREETS = ["Приветули", "Утро утро добро", "Дароу", "Привет.", "ДАРОВА", "Хай", "А на зарядку?", "Доброе)", "Привет)", "Приветик)"]
+MEMES = []
+CUTES = ["Ты чудо)", "У тебя все выйдет", "Уряяя", "Так держать!", "Поднять щиты!!!", "Ты готов", "Если не ты, то кто?", "Герой", "3 богатыря с тобой", "Оленей больше", "Спасибо что живой"]
 global_bots = 0
 TIMES_WAKE_UP = 4
 boolVAR = True
@@ -34,13 +37,28 @@ def get_text_messages(message):
     global boolVAR
     global NAMES
     global COMPLIMENTS
+    global GREETS
+    global MEMES
+    global CUTES
 
     global_bots +=1
-    photo = open('food.jpg', 'rb')
-    bot.send_photo(message.chat.id, photo)
+
     if message.text == "Ну че":
         bot.send_message(message.chat.id, WORDS[randint(0, len(WORDS))])
-   # now = datetime.datetime.now()
+
+    if message.text == "Привет" or message.text == "привет" or message.text == "Прив":
+        bot.send_message(message.chat.id, GREETS[randint(0, len(GREETS))])
+    if message.text == "Хочу милости" or message.text == "Милость" or message.text == "Поддержки дай" or message.text == "Поддержи":
+        bot.send_message(message.chat.id, CUTES[randint(0, len(CUTES))])
+    if message.text == "Хочу мем" or message.text == "мем":
+        if (len(MEMES) == 0):
+            bot.send_message(message.chat.id, "эх, пусто...")
+        else:
+            bot.send_message(message.chat.id, MEMES[randint(0, len(MEMES))])
+    if message.text == "на лицо пжлста":
+        photo = open('food.jpg', 'rb')
+        bot.send_photo(message.chat.id, photo)
+    # now = datetime.datetime.now()
    # bot.send_message(message.chat.id, str(now.minute))
     cnt_wake_up_0 = 1
     cnt_wake_up_1 = 0
@@ -86,30 +104,40 @@ def get_text_messages(message):
                     bot.send_message(message.chat.id, "Утренняя ХАВКА!")
                 times[2] = 0
                 times[3] = 1
+                photo = open('food.jpg', 'rb')
+                bot.send_photo(message.chat.id, photo)
             if (int(now.hour) + 3) % 24 == 13 and int(now.minute) == 30 and int(now.second) < 20 and times[3] == 1:
                 print("DAILY FOOD")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "Дневная ХАВКА!")
                 times[3] = 0
                 times[4] = 1
+                photo = open('food.jpg', 'rb')
+                bot.send_photo(message.chat.id, photo)
             if (int(now.hour) + 3) % 24 == 16 and int(now.minute) == 30 and int(now.second) < 20 and times[4] == 1:
                 print("NOT ENOUGH FOOD")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "Недо ХАВКА!")
                 times[4] = 0
                 times[5] = 1
+                photo = open('food.jpg', 'rb')
+                bot.send_photo(message.chat.id, photo)
             if (int(now.hour) + 3) % 24 == 19 and int(now.minute) == 0  and int(now.second) < 20 and times[5] == 1:
                 print("EVENING FOOD")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "Вечерняя ХАВКА!")
                 times[5] = 0
                 times[6] = 1
+                photo = open('food.jpg', 'rb')
+                bot.send_photo(message.chat.id, photo)
             if (int(now.hour) + 3) % 24 == 21 and int(now.minute) == 0  and int(now.second) < 20 and times[6] == 1:
                 print("VERY EVENING FOOD")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "Очень вечерняя ХАВКА!")
                 times[6] = 0
                 times[0] = 1
+                photo = open('food.jpg', 'rb')
+                bot.send_photo(message.chat.id, photo)
 
 
 if __name__ == '__main__':
