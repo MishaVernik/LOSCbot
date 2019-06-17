@@ -53,18 +53,18 @@ def get_text_messages(message):
             now = datetime.datetime.now()
             if (int(now.minute) + 1) % 20 == 0:
                 boolT = True
-            if (int(now.second)% 20 == 0):
+            if int(now.second) % 30 == 0:
                 print(str(global_bots) + ": ----BOTS \n Time: " + str(now))
             #bot.send_message(message.chat.id, str(now.hour))
             if (int(now.hour) + 3) % 24 > 7 and int(now.minute) % 20 == 0 and boolT == True:
                 print("COMPLIMENTS")
                 boolT = False
                 bot.send_message(message.chat.id,
-                                 NAMES[randint(0, len(NAMES))] + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
+                                 NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
                 bot.send_message(message.chat.id,
-                                 NAMES[randint(0, len(NAMES))] + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
+                                 NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
                 bot.send_message(message.chat.id,
-                                 NAMES[randint(0, len(NAMES))] + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
+                                 NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
 
             if (int(now.hour) + 3) % 24 == 23 and int(now.minute) == 0  and int(now.second) < 20 and times[0] == 0:
                 print("WAKE UP")
