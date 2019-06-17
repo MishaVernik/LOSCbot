@@ -53,17 +53,17 @@ def get_text_messages(message):
     global_bots +=1
 
     if message.text == "Ну че":
-        bot.send_message(message.chat.id, WORDS[randint(0, len(WORDS))])
+        bot.send_message(message.chat.id, WORDS[randint(0, len(WORDS) - 1)])
 
     if message.text == "Привет" or message.text == "привет" or message.text == "Прив":
-        bot.send_message(message.chat.id, GREETS[randint(0, len(GREETS))])
+        bot.send_message(message.chat.id, GREETS[randint(0, len(GREETS) - 1)])
     if message.text == "Хочу милости" or message.text == "Милость" or message.text == "Поддержки дай" or message.text == "Поддержи":
-        bot.send_message(message.chat.id, CUTES[randint(0, len(CUTES))])
+        bot.send_message(message.chat.id, CUTES[randint(0, len(CUTES) - 1)])
     if message.text == "Хочу мем" or message.text == "мем":
         if (len(MEMES) == 0):
             bot.send_message(message.chat.id, "эх, пусто...")
         else:
-            photo = open(MEMES[randint(0, len(MEMES))], 'rb')
+            photo = open(MEMES[randint(0, len(MEMES) - 1)], 'rb')
             bot.send_photo(message.chat.id, photo)
     if message.text == "на лицо пжлста":
         photo = open('food.jpg', 'rb')
@@ -73,9 +73,11 @@ def get_text_messages(message):
     cnt_wake_up_0 = 1
     cnt_wake_up_1 = 0
     print(str(global_bots) + " ----BOTS ")
+    if message.text == "/help":
+        bot.send_message(message.chat.id, "Что можно? \n1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n За любыми идеями писать @MikeVernik")
     if message.text == "/start" and boolVAR:
         i = 0
-        times = [1,0,0,0,0,0,0,0,0,0,0,0]
+        times = [0,1,0,0,0,0,0,0,0,0,0,0]
         boolVAR = False
         boolT = True
         timeBool = True
@@ -87,7 +89,7 @@ def get_text_messages(message):
                 print(str(global_bots) + ": ----BOTS \n Time: " + str(now))
                 with open("logs.txt", "a+") as f:
                     f.write(str(global_bots) + ": ----BOTS \n Time: " + str(now))
-                    print("WROTE")
+                    print("HAS WRITTEN")
                     print(times)
                     f.write(str(times))
                 timeBool = False
@@ -106,7 +108,7 @@ def get_text_messages(message):
             #     bot.send_message(message.chat.id,
             #                      NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
             #
-            if (int(now.hour) + 3) % 24 == 23 and int(now.minute) == 0   and times[0] == 0:
+            if (int(now.hour) + 3) % 24 == 23 and int(now.minute) == 0   and times[0] == 1:
                 print("WAKE UP")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ПОДЪЕМ!")
