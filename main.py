@@ -36,7 +36,8 @@ def get_text_messages(message):
     global COMPLIMENTS
 
     global_bots +=1
-
+    photo = open('food.jpg', 'rb')
+    bot.send_photo(message.chat.id, photo)
     if message.text == "Ну че":
         bot.send_message(message.chat.id, WORDS[randint(0, len(WORDS))])
    # now = datetime.datetime.now()
@@ -66,13 +67,14 @@ def get_text_messages(message):
                 bot.send_message(message.chat.id,
                                  NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
 
+
             if (int(now.hour) + 3) % 24 == 23 and int(now.minute) == 0  and int(now.second) < 20 and times[0] == 0:
                 print("WAKE UP")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ПОДЪЕМ!")
                 times[0] = 0
                 times[1] = 1
-            if (int(now.hour) + 3 )% 24 == 10 and int(now.minute) == 46 and int(now.second) < 20 and times[1] == 1:
+            if (int(now.hour) + 3 )% 24 == 7  and int(now.minute) == 50 and int(now.second) < 20 and times[1] == 1:
                 print("GO TO BED")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ОТБОЙ!")
