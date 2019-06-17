@@ -35,7 +35,7 @@ def webhook():
 def print2(times, msg):
     with open("logs.txt", "a+") as f:
         f.write(msg)
-        f.write(times)
+        f.write(str(times))
     print(msg)
     print(times)
 
@@ -88,7 +88,7 @@ def get_text_messages(message):
                 with open("logs.txt", "a+") as f:
                     f.write(str(global_bots) + ": ----BOTS \n Time: " + str(now))
                     print("WROTE")
-                    f.write(times)
+                    f.write(str(times))
                 timeBool = False
             if int(now.second) % 55 != 0 and timeBool == False:
                 timeBool = True
