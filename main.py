@@ -8,6 +8,7 @@ bot = telebot.TeleBot(TOKEN)
 
 global_bots = 0
 TIMES_WAKE_UP = 4
+boolVAR = True
 server = Flask(__name__)
 
 @server.route('/' + TOKEN, methods=['POST'])
@@ -26,26 +27,31 @@ def webhook():
 def get_text_messages(message):
     global global_bots
     global TIMES_WAKE_UP
+    global boolVAR
+
     global_bots +=1
 
    # now = datetime.datetime.now()
    # bot.send_message(message.chat.id, str(now.minute))
     cnt_wake_up_0 = 1
     cnt_wake_up_1 = 0
-    if message.text == "/start":
+    print(str(global_bots) + " ----BOTS ")
+    if message.text == "/start" and boolVAR:
         i = 0
+        boolVAR = False
         while True:
             now = datetime.datetime.now()
+            print(str(global_bots) + ": ----BOTS \n Time: " + str(now))
             #bot.send_message(message.chat.id, str(now.hour))
             i +=1
             if (int(now.hour) + 3)% 24 == 23 and int(now.minute) == 0 and int(now.second) < 20 and cnt_wake_up_0 == 0:
-                print("OKAY")
+                print("WAKE UP")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ПОДЪЕМ!")
                 cnt_wake_up_0 = 1
                 cnt_wake_up_1 = 0
-            if (int(now.hour) + 3 )% 24 == 7 and int(now.minute) == 50 and int(now.second) < 20 and cnt_wake_up_0 == 1:
-                print("OKAY1")
+            if (int(now.hour) + 3 )% 24 == 10 and int(now.minute) == 46 and int(now.second) < 20 and cnt_wake_up_0 == 1:
+                print("GO TO BED")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ОТБОЙ!")
                 cnt_wake_up_0 = 0
