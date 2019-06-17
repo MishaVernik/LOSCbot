@@ -33,6 +33,9 @@ def webhook():
 
 
 def print2(times, msg):
+    with open("logs.txt", "a+") as f:
+        f.write(msg)
+        f.write(times)
     print(msg)
     print(times)
 
@@ -72,7 +75,7 @@ def get_text_messages(message):
     print(str(global_bots) + " ----BOTS ")
     if message.text == "/start" and boolVAR:
         i = 0
-        times = [0,0,0,0,0,1,0,0,0,0,0,0]
+        times = [1,0,0,0,0,0,0,0,0,0,0,0]
         boolVAR = False
         boolT = True
         timeBool = True
@@ -80,24 +83,28 @@ def get_text_messages(message):
             now = datetime.datetime.now()
             if (int(now.minute) + 1) % 20 == 0:
                 boolT = True
-            if int(now.second) % 30 == 0 and timeBool == True:
+            if int(now.second) % 55 == 0 and timeBool == True:
                 print(str(global_bots) + ": ----BOTS \n Time: " + str(now))
+                with open("logs.txt", "a+") as f:
+                    f.write(str(global_bots) + ": ----BOTS \n Time: " + str(now))
+                    print("WROTE")
+                    f.write(times)
                 timeBool = False
-            if int(now.second) % 30 != 0 and timeBool == False:
+            if int(now.second) % 55 != 0 and timeBool == False:
                 timeBool = True
 
             #bot.send_message(message.chat.id, str(now.hour))
-            if (int(now.hour) + 3) % 24 > 7 and int(now.minute) % 50 == 0 and boolT == True and int(now.hour) % 2 == 0:
-                print("COMPLIMENTS")
-                boolT = False
-                bot.send_message(message.chat.id,
-                                 NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
-                bot.send_message(message.chat.id,
-                                 NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
-                bot.send_message(message.chat.id,
-                                 NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
 
-
+            # if (int(now.hour) + 3) % 24 > 7 and int(now.minute) % 50 == 0 and boolT == True and int(now.hour) % 2 == 0:
+            #     print("COMPLIMENTS")
+            #     boolT = False
+            #     bot.send_message(message.chat.id,
+            #                      NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
+            #     bot.send_message(message.chat.id,
+            #                      NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
+            #     bot.send_message(message.chat.id,
+            #                      NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
+            #
             if (int(now.hour) + 3) % 24 == 23 and int(now.minute) == 0   and times[0] == 0:
                 print("WAKE UP")
                 for _ in range(TIMES_WAKE_UP):
@@ -167,7 +174,7 @@ def get_text_messages(message):
 
 
 if __name__ == '__main__':
-    server.debug = True
+    server.debug = False
     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
     bot.polling(none_stop=True, interval=0)
 
