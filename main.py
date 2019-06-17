@@ -30,6 +30,10 @@ def webhook():
     return "!", 200
 
 
+def print2(times, msg):
+    print(msg)
+    print(times)
+
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     global global_bots
@@ -65,7 +69,7 @@ def get_text_messages(message):
     print(str(global_bots) + " ----BOTS ")
     if message.text == "/start" and boolVAR:
         i = 0
-        times = [0,0,0,1,0,0,0,0,0,0,0,0]
+        times = [0,0,0,0,0,1,0,0,0,0,0,0]
         boolVAR = False
         boolT = True
         while True:
@@ -86,35 +90,44 @@ def get_text_messages(message):
                                  NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
 
 
-            if (int(now.hour) + 3) % 24 == 23 and int(now.minute) == 0  and int(now.second) < 20 and times[0] == 0:
+            if (int(now.hour) + 3) % 24 == 23 and int(now.minute) == 0   and times[0] == 0:
                 print("WAKE UP")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ПОДЪЕМ!")
+                print2(times, "BEFORE: ")
                 times[0] = 0
                 times[1] = 1
-            if (int(now.hour) + 3 )% 24 == 7  and int(now.minute) == 50 and int(now.second) < 20 and times[1] == 1:
+                print2(times, "AFTER: ")
+            if (int(now.hour) + 3) % 24 == 7  and int(now.minute) == 50  and times[1] == 1:
                 print("GO TO BED")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "РОТА ОТБОЙ!")
+                print2(times, "BEFORE: ")
                 times[1] = 0
                 times[2] = 1
-            if (int(now.hour) + 3) % 24 == 9  and int(now.minute) == 0  and int(now.second) < 20 and times[2] == 1:
+                print2(times, "AFTER: ")
+            if (int(now.hour) + 3) % 24 == 9  and int(now.minute) == 0   and times[2] == 1:
                 print("MORNING FOOD")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "Утренняя ХАВКА!")
+
+                print2(times, "BEFORE: ")
                 times[2] = 0
                 times[3] = 1
+                print2(times, "AFTER: ")
                 photo = open('food.jpg', 'rb')
                 bot.send_photo(message.chat.id, photo)
-            if (int(now.hour) + 3) % 24 == 13 and int(now.minute) == 30 and int(now.second) < 20 and times[3] == 1:
+            if (int(now.hour) + 3) % 24 == 13 and int(now.minute) == 30  and times[3] == 1:
                 print("DAILY FOOD")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "Дневная ХАВКА!")
+                print2(times, "BEFORE: ")
                 times[3] = 0
                 times[4] = 1
+                print2(times, "AFTER: ")
                 photo = open('food.jpg', 'rb')
                 bot.send_photo(message.chat.id, photo)
-            if (int(now.hour) + 3) % 24 == 16 and int(now.minute) == 30 and int(now.second) < 20 and times[4] == 1:
+            if (int(now.hour) + 3) % 24 == 16 and int(now.minute) == 30  and times[4] == 1:
                 print("NOT ENOUGH FOOD")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "Недо ХАВКА!")
@@ -122,20 +135,25 @@ def get_text_messages(message):
                 times[5] = 1
                 photo = open('food.jpg', 'rb')
                 bot.send_photo(message.chat.id, photo)
-            if (int(now.hour) + 3) % 24 == 19 and int(now.minute) == 0  and int(now.second) < 20 and times[5] == 1:
+            if (int(now.hour) + 3) % 24 == 19 and int(now.minute) == 0   and times[5] == 1:
                 print("EVENING FOOD")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "Вечерняя ХАВКА!")
+
+                print2(times, "BEFORE: ")
                 times[5] = 0
                 times[6] = 1
+                print2(times, "AFTER: ")
                 photo = open('food.jpg', 'rb')
                 bot.send_photo(message.chat.id, photo)
-            if (int(now.hour) + 3) % 24 == 21 and int(now.minute) == 0  and int(now.second) < 20 and times[6] == 1:
+            if (int(now.hour) + 3) % 24 == 21 and int(now.minute) == 0   and times[6] == 1:
                 print("VERY EVENING FOOD")
                 for _ in range(TIMES_WAKE_UP):
                     bot.send_message(message.chat.id, "Очень вечерняя ХАВКА!")
+                print2(times, "BEFORE: ")
                 times[6] = 0
                 times[0] = 1
+                print2(times, "AFTER: ")
                 photo = open('food.jpg', 'rb')
                 bot.send_photo(message.chat.id, photo)
 
