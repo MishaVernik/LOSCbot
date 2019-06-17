@@ -56,7 +56,7 @@ def get_text_messages(message):
             if int(now.second) % 30 == 0:
                 print(str(global_bots) + ": ----BOTS \n Time: " + str(now))
             #bot.send_message(message.chat.id, str(now.hour))
-            if (int(now.hour) + 3) % 24 > 7 and int(now.minute) % 20 == 0 and boolT == True:
+            if (int(now.hour) + 3) % 24 > 7 and int(now.minute) % 50 == 0 and boolT == True and int(now.hour) % 2 == 0:
                 print("COMPLIMENTS")
                 boolT = False
                 bot.send_message(message.chat.id,
