@@ -77,7 +77,7 @@ def get_text_messages(message):
         bot.send_message(message.chat.id, "Что можно? \n1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n За любыми идеями писать @MikeVernik")
     if message.text == "/start" and boolVAR:
         i = 0
-        times = [0,1,0,0,0,0,0,0,0,0,0,0]
+        times = [0,0,0,1,0,0,0,0,0,0,0,0]
         boolVAR = False
         boolT = True
         timeBool = True
