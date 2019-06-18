@@ -105,7 +105,13 @@ def get_text_messages(message):
         t = randint(0,2)
         if t != 0:
             ch = randint(0,28)
-            bot.send_message(message.chat.id, CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)])
+            cnt = randint(1,3)
+            if cnt == 1:
+                bot.send_message(message.chat.id, "**" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "**")
+            elif cnt == 2:
+                bot.send_message(message.chat.id, "__" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "__")
+            elif cnt == 3:
+                bot.send_message(message.chat.id, CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)])
         else:
             bot.send_message(message.chat.id, CUTES[randint(0, len(CUTES) - 1)])
     if message.text == "Хочу мем" or message.text == "мем":
