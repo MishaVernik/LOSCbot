@@ -2,7 +2,7 @@ import telebot
 import datetime
 import os
 
-import telegram as telegram
+import telegram
 from flask import Flask, request
 from random import randint
 import codecs
@@ -92,7 +92,10 @@ def get_text_messages(message):
         bot.send_message(message.chat.id,
                          QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "<i>" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "</i>",
                          parse_mode=telegram.ParseMode.HTML)
-
+    print('#'*40)
+    print(telegram)
+    bot.send_message(message.chat.id, str(telegram.ParseMode))
+    print('#' * 40)
     if message.text.find("Милость") > 0:
         #print(str(CUTE_WORDS))
         getLetter = message.text[message.text.find("Милость") + 7 + 1]
