@@ -3,6 +3,7 @@ import datetime
 import os
 from flask import Flask, request
 from random import randint
+import codecs
 
 TOKEN = '830999920:AAFyyAO5ZIJ7sYQFJGQA9QmF201KWnObHNc'
 bot = telebot.TeleBot(TOKEN)
@@ -15,9 +16,35 @@ MEMES = []
 for _ in range(1,30):
     MEMES.append( "Memes/"+ str(_) + ".jpg")
 CUTES = ["Ты чудо)", "У тебя все выйдет", "Уряяя", "Так держать!", "Поднять щиты!!!", "Ты готов", "Если не ты, то кто?", "Герой", "3 богатыря с тобой", "Оленей больше", "Спасибо что живой"]
+QUOTES = []
+
+CUTE_WORDS = dict()
+for _ in range(32):
+    CUTE_WORDS[_] = []
+letter = 0
+with open("cute_words.txt","r", encoding='utf-8') as f:
+   for line in f:
+     #  print(line)
+     #  print(len(line))
+       if len(line) == 2 and line != '\n':
+           #print('$'*40)
+          # print("--->" + line + "<------")
+           letter = ord(line[0])
+       elif len(line) > 1 and letter != 0:
+           #print(ord(letter))
+           #print("----- "+ str(letter))
+           CUTE_WORDS[letter - 1040].append(line)
+
+
+with open("support.txt",encoding='utf-8') as f:
+  for line in f:
+    QUOTES.append(line)
+
 global_bots = 0
 TIMES_WAKE_UP = 4
 boolVAR = True
+print(QUOTES)
+print(CUTE_WORDS)
 server = Flask(__name__)
 
 @server.route('/' + TOKEN, methods=['POST'])
@@ -39,6 +66,10 @@ def print2(times, msg):
     print(msg)
     print(times)
 
+
+def cute_words(str):
+
+    return ""
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     global global_bots
@@ -49,20 +80,34 @@ def get_text_messages(message):
     global GREETS
     global MEMES
     global CUTES
+    global CUTE_WORDS
+    global QUOTES
 
     global_bots +=1
 
+    if message.text == "Цитата":
+        bot.send_message(message.chat.id, QUOTES[randint(0,len(QUOTES) - 1)])
+    if message.text.find("Милость ") > 0:
+        print(str(CUTE_WORDS))
+        getLetter = message.text[message.text.find("Милость") + 7 + 2]
+        if getLetter != '':
+            bot.send_message(message.chat.id, CUTE_WORDS[ord(getLetter) - 1072][randint(0,CUTE_WORDS[ord(getLetter) - 1072] - 1)])
     if message.text == "Рота":
         s = bot.send_message(message.chat.id, "подъем")
-        bot.send_message("435112571", str(s))
-        #bot.pin_chat_message(message.chat.id, s.chat.id)
+        #bot.send_message("435112571", str(s))
+        bot.pin_chat_message(message.chat.id, s.message_id)
     if message.text == "Ну че":
         bot.send_message(message.chat.id, WORDS[randint(0, len(WORDS) - 1)])
 
     if message.text == "Привет" or message.text == "привет" or message.text == "Прив":
         bot.send_message(message.chat.id, GREETS[randint(0, len(GREETS) - 1)])
     if message.text == "Хочу милости" or message.text == "Милость" or message.text == "Поддержки дай" or message.text == "Поддержи":
-        bot.send_message(message.chat.id, CUTES[randint(0, len(CUTES) - 1)])
+        t = randint(0,2)
+        if t != 0:
+            ch = randint(0,28)
+            bot.send_message(message.chat.id, CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)])
+        else:
+            bot.send_message(message.chat.id, CUTES[randint(0, len(CUTES) - 1)])
     if message.text == "Хочу мем" or message.text == "мем":
         if (len(MEMES) == 0):
             bot.send_message(message.chat.id, "эх, пусто...")
@@ -78,7 +123,7 @@ def get_text_messages(message):
     cnt_wake_up_1 = 0
     print(str(global_bots) + " ----BOTS ")
     if message.text == "/help":
-        bot.send_message(message.chat.id, "Что можно? \n1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n 11. Рота \n За любыми идеями писать @MikeVernik")
+        bot.send_message(message.chat.id, "**Что можно?** \n```1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n 11. Рота \n12. Милость [любую букву алфавита(пример: Милость м)] \n13. Цитатa ```\n За любыми идеями писать @MikeVernik")
     if message.text == "/start" and boolVAR:
         i = 0
         times = [0,0,0,0,0,0,1,0,0,0,0,0]
@@ -183,9 +228,10 @@ def get_text_messages(message):
 
 
 if __name__ == '__main__':
-    server.debug = False
-    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-    bot.polling(none_stop=True, interval=0)
+    print()
+    #server.debug = False
+    #server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    #bot.polling(none_stop=True, interval=0)
 
 
 
