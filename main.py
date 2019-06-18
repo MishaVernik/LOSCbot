@@ -68,10 +68,6 @@ def print2(times, msg):
     print(msg)
     print(times)
 
-
-def cute_words(str):
-
-    return ""
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     global global_bots
@@ -90,8 +86,8 @@ def get_text_messages(message):
     if message.text == "Цитата":
         ct = QUOTES[randint(0,len(QUOTES) - 1)].find("»")
         bot.send_message(message.chat.id,
-                         QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "<br><i>" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "</i>",
-                         parse_mode=telegram.ParseMode.HTML)
+                         QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "\n__" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "__",
+                         parse_mode=telegram.MARKDOWN)
     if message.text.find("Милость") >= 0:
         #print(str(CUTE_WORDS))
         try:
@@ -100,7 +96,7 @@ def get_text_messages(message):
             print(getLetter)
             if getLetter != '':
                 bot.send_message(message.chat.id,
-                                 "<i>"+CUTE_WORDS[ord(getLetter) - 1072][randint(0,CUTE_WORDS[ord(getLetter) - 1072] - 1)] + "</i>",
+                                 "<i>"+CUTE_WORDS[ord(getLetter) - 1072][randint(0,len(CUTE_WORDS[ord(getLetter) - 1072]) - 1)] + "</i>",
                                  parse_mode=telegram.ParseMode.HTML
                                  )
         except ValueError as ve:
@@ -123,13 +119,13 @@ def get_text_messages(message):
             cnt = randint(1,3)
             if cnt == 1:
                 bot.send_message(message.chat.id,
-                                 "<b>" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "</b>",
-                                 parse_mode=telegram.ParseMode.HTML
+                                 "**" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "**",
+                                 parse_mode=telegram.ParseMode.MARKDOWN
                                  )
             elif cnt == 2:
                 bot.send_message(message.chat.id,
-                                 "<i>" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "</i>",
-                                 parse_mode=telegram.ParseMode.HTML
+                                 "__" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "__",
+                                 parse_mode=telegram.ParseMode.MARKDOWN
                                  )
             elif cnt == 3:
                 bot.send_message(message.chat.id, CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)])
@@ -151,8 +147,8 @@ def get_text_messages(message):
     print(str(global_bots) + " ----BOTS ")
     if message.text == "/help":
         bot.send_message(message.chat.id,
-                         "<b>Что можно?</b> <br><i>1. мем<br>2. на лицо пжлста<br>3. Ну че<br>4. Привет <br>5. Прив <br>6. Поддержи <br>7. Милость <br>8. Хочу милости<br>9. Поддержки дай <br>10. Хочу мем <br> 11. Рота <br>12. Милость [любую букву алфавита(пример: Милость м)] <br>13. Цитатa></i> <br> За любыми идеями писать @MikeVernik",
-                         parse_mode=telegram.ParseMode.HTML)
+                         "**Что можно?** \n__1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n 11. Рота \n12. Милость [любую букву алфавита(пример: Милость м)] \n13. Цитатa>__ \n За любыми идеями писать @MikeVernik",
+                         parse_mode=telegram.ParseMode.MARKDOWN)
     if message.text == "/start" and boolVAR:
         i = 0
         times = [1,1,1,1,1,1,1,1,1,0,0,0]
