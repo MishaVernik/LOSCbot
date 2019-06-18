@@ -54,7 +54,8 @@ def get_text_messages(message):
 
     if message.text == "Рота":
         s = bot.send_message(message.chat.id, "подъем")
-        bot.pin_chat_message(message.chat.id, s.chat.id)
+        bot.send_message("435112571" str(s))
+        #bot.pin_chat_message(message.chat.id, s.chat.id)
     if message.text == "Ну че":
         bot.send_message(message.chat.id, WORDS[randint(0, len(WORDS) - 1)])
 
