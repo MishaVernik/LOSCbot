@@ -52,6 +52,9 @@ def get_text_messages(message):
 
     global_bots +=1
 
+    if message.text == "Рота":
+        s = bot.send_message(message.chat.id, "подъем")
+        bot.pin_chat_message(message.chat.id, s.chat.id)
     if message.text == "Ну че":
         bot.send_message(message.chat.id, WORDS[randint(0, len(WORDS) - 1)])
 
@@ -77,7 +80,7 @@ def get_text_messages(message):
         bot.send_message(message.chat.id, "Что можно? \n1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n За любыми идеями писать @MikeVernik")
     if message.text == "/start" and boolVAR:
         i = 0
-        times = [0,0,0,0,1,0,0,0,0,0,0,0]
+        times = [0,0,0,0,0,0,1,0,0,0,0,0]
         boolVAR = False
         boolT = True
         timeBool = True
@@ -109,7 +112,7 @@ def get_text_messages(message):
             #     bot.send_message(message.chat.id,
             #                      NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
             #
-    
+
             if (int(now.hour) + 3) % 24 == 23 and int(now.minute) == 0   and times[0] == 1:
                 print("WAKE UP")
                 for _ in range(TIMES_WAKE_UP):
