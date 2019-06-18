@@ -40,7 +40,8 @@ with open("cute_words.txt","r", encoding='utf-8') as f:
 
 with open("support.txt",encoding='utf-8') as f:
   for line in f:
-    QUOTES.append(line)
+    ct = line.find("»")
+    QUOTES.append(line[:ct]+ "<i>©" + line[ct+1:] + "</i>")
 
 global_bots = 0
 TIMES_WAKE_UP = 4
@@ -86,7 +87,7 @@ def get_text_messages(message):
     if message.text == "Цитата":
         ct = QUOTES[randint(0,len(QUOTES) - 1)].find("»")
         bot.send_message(message.chat.id,
-                         QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "<i>©" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "</i>",
+                         QUOTES[randint(0,len(QUOTES) - 1)],
                          parse_mode = telegram.ParseMode.HTML
                          )
     if message.text.find("Милость") >= 0 and len(message.text) >= 8:
@@ -253,10 +254,10 @@ def get_text_messages(message):
 
 
 if __name__ == '__main__':
-    #print()
-    server.debug = False
-    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-    bot.polling(none_stop=True, interval=0)
+     print()
+    #server.debug = False
+    #server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    #bot.polling(none_stop=True, interval=0)
 
 
 
