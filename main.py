@@ -90,19 +90,25 @@ def get_text_messages(message):
     if message.text == "Цитата":
         ct = QUOTES[randint(0,len(QUOTES) - 1)].find("»")
         bot.send_message(message.chat.id,
-                         QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "<i>" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "</i>",
+                         QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "<br><i>" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "</i>",
                          parse_mode=telegram.ParseMode.HTML)
-    print('#'*40)
-    print(telegram)
-    bot.send_message(message.chat.id, str(telegram.ParseMode))
-    print('#' * 40)
-    if message.text.find("Милость") > 0:
+    if message.text.find("Милость") >= 0:
         #print(str(CUTE_WORDS))
-        getLetter = message.text[message.text.find("Милость") + 7 + 1]
-        if getLetter != '':
-            bot.send_message(message.chat.id, CUTE_WORDS[ord(getLetter) - 1072][randint(0,CUTE_WORDS[ord(getLetter) - 1072] - 1)])
+        try:
+            getLetter = message.text[message.text.find("Милость") + 7 + 1]
+            print(message.text)
+            print(getLetter)
+            if getLetter != '':
+                bot.send_message(message.chat.id,
+                                 "<i>"+CUTE_WORDS[ord(getLetter) - 1072][randint(0,CUTE_WORDS[ord(getLetter) - 1072] - 1)] + "</i>",
+                                 parse_mode=telegram.ParseMode.HTML
+                                 )
+        except ValueError as ve:
+            print(ve)
     if message.text == "Рота":
-        s = bot.send_message(message.chat.id, "<h1><b>подъем<b><h1>", parse_mode=telegram.ParseMode.HTML)
+        s = bot.send_message(message.chat.id,
+                             "<b>подъем</b>",
+                             parse_mode=telegram.ParseMode.HTML)
         #bot.send_message("435112571", str(s))
         bot.pin_chat_message(message.chat.id, s.message_id)
     if message.text == "Ну че":
@@ -144,10 +150,12 @@ def get_text_messages(message):
     cnt_wake_up_1 = 0
     print(str(global_bots) + " ----BOTS ")
     if message.text == "/help":
-        bot.send_message(message.chat.id, "**Что можно?** \n```1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n 11. Рота \n12. Милость [любую букву алфавита(пример: Милость м)] \n13. Цитатa ```\n За любыми идеями писать @MikeVernik")
+        bot.send_message(message.chat.id,
+                         "<b>Что можно?</b> <br><i>1. мем<br>2. на лицо пжлста<br>3. Ну че<br>4. Привет <br>5. Прив <br>6. Поддержи <br>7. Милость <br>8. Хочу милости<br>9. Поддержки дай <br>10. Хочу мем <br> 11. Рота <br>12. Милость [любую букву алфавита(пример: Милость м)] <br>13. Цитатa></i> <br> За любыми идеями писать @MikeVernik",
+                         parse_mode=telegram.ParseMode.HTML)
     if message.text == "/start" and boolVAR:
         i = 0
-        times = [0,0,0,0,0,0,1,0,0,0,0,0]
+        times = [1,1,1,1,1,1,1,1,1,0,0,0]
         boolVAR = False
         boolT = True
         timeBool = True
