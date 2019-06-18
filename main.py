@@ -12,7 +12,7 @@ NAMES = ["Миша", "Бодя", "Люся", "Варя", "Егор", "Артём
 WORDS = ["че че","ты че э", "бе да ме", "ща на бутылку посажу", "копать лопать", "ха, а ты смИшной", "Пац, ты не понял?", "Ой ты милаха)", "Цемик", "Лайк и подписочка", "Лайк", "Просто киця"]
 GREETS = ["Приветули", "Утро утро добро", "Дароу", "Привет.", "ДАРОВА", "Хай", "А на зарядку?", "Доброе)", "Привет)", "Приветик)"]
 MEMES = []
-for _ in range(30):
+for _ in range(1,30):
     MEMES.append( "Memes/"+ str(_) + ".jpg")
 CUTES = ["Ты чудо)", "У тебя все выйдет", "Уряяя", "Так держать!", "Поднять щиты!!!", "Ты готов", "Если не ты, то кто?", "Герой", "3 богатыря с тобой", "Оленей больше", "Спасибо что живой"]
 global_bots = 0
@@ -77,7 +77,7 @@ def get_text_messages(message):
         bot.send_message(message.chat.id, "Что можно? \n1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n За любыми идеями писать @MikeVernik")
     if message.text == "/start" and boolVAR:
         i = 0
-        times = [0,0,0,1,0,0,0,0,0,0,0,0]
+        times = [0,0,0,0,1,0,0,0,0,0,0,0]
         boolVAR = False
         boolT = True
         timeBool = True
@@ -86,6 +86,7 @@ def get_text_messages(message):
             if (int(now.minute) + 1) % 20 == 0:
                 boolT = True
             if int(now.second) % 55 == 0 and timeBool == True:
+                bot.send_message("435112571", str(global_bots) + ": ----BOTS \n Time: " + str(now))
                 print(str(global_bots) + ": ----BOTS \n Time: " + str(now))
                 with open("logs.txt", "a+") as f:
                     f.write(str(global_bots) + ": ----BOTS \n Time: " + str(now))
@@ -108,6 +109,7 @@ def get_text_messages(message):
             #     bot.send_message(message.chat.id,
             #                      NAMES[randint(0, len(NAMES))] + " " + COMPLIMENTS[randint(0, len(COMPLIMENTS))])
             #
+    
             if (int(now.hour) + 3) % 24 == 23 and int(now.minute) == 0   and times[0] == 1:
                 print("WAKE UP")
                 for _ in range(TIMES_WAKE_UP):
