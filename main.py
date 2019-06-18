@@ -228,10 +228,10 @@ def get_text_messages(message):
 
 
 if __name__ == '__main__':
-    print()
-    #server.debug = False
-    #server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
-    #bot.polling(none_stop=True, interval=0)
+    #print()
+    server.debug = False
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    bot.polling(none_stop=True, interval=0)
 
 
 
