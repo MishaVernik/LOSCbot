@@ -86,9 +86,10 @@ def get_text_messages(message):
     if message.text == "Цитата":
         ct = QUOTES[randint(0,len(QUOTES) - 1)].find("»")
         bot.send_message(message.chat.id,
-                         QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "\n__" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "__"
+                         QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "<i>©" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "</i>",
+                         parse_mode = telegram.ParseMode.HTML
                          )
-    if message.text.find("Милость") >= 0:
+    if message.text.find("Милость") >= 0 and len(message.text) >= 8:
         #print(str(CUTE_WORDS))
         try:
             getLetter = message.text[message.text.find("Милость") + 7 + 1]
@@ -119,11 +120,13 @@ def get_text_messages(message):
             cnt = randint(1,3)
             if cnt == 1:
                 bot.send_message(message.chat.id,
-                                 "**" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "**"
+                                 "<b>" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "</b>",
+                                 parse_mode=telegram.ParseMode.HTML
                                  )
             elif cnt == 2:
                 bot.send_message(message.chat.id,
-                                 "__" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "__"
+                                 "<i>" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "</i>",
+                                 parse_mode = telegram.ParseMode.HTML
                                  )
             elif cnt == 3:
                 bot.send_message(message.chat.id, CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)])
@@ -145,7 +148,7 @@ def get_text_messages(message):
     print(str(global_bots) + " ----BOTS ")
     if message.text == "/help":
         bot.send_message(message.chat.id,
-                         "**Что можно?** \n__1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n 11. Рота \n12. Милость [любую букву алфавита(пример: Милость м)] \n13. Цитатa__ \n За любыми идеями писать @MikeVernik")
+                         "*Что можно?* \n1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n 11. Рота \n12. Милость [любую букву алфавита(пример: Милость м)] \n13. Цитатa \n За любыми идеями писать @MikeVernik")
     if message.text == "/start" and boolVAR:
         i = 0
         times = [1,1,1,1,1,1,1,1,1,0,0,0]
