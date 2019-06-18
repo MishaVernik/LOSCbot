@@ -54,7 +54,7 @@ def get_text_messages(message):
 
     if message.text == "Рота":
         s = bot.send_message(message.chat.id, "подъем")
-        bot.send_message("435112571" str(s))
+        bot.send_message("435112571", str(s))
         #bot.pin_chat_message(message.chat.id, s.chat.id)
     if message.text == "Ну че":
         bot.send_message(message.chat.id, WORDS[randint(0, len(WORDS) - 1)])
@@ -78,7 +78,7 @@ def get_text_messages(message):
     cnt_wake_up_1 = 0
     print(str(global_bots) + " ----BOTS ")
     if message.text == "/help":
-        bot.send_message(message.chat.id, "Что можно? \n1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n За любыми идеями писать @MikeVernik")
+        bot.send_message(message.chat.id, "Что можно? \n1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n 11. Рота \n За любыми идеями писать @MikeVernik")
     if message.text == "/start" and boolVAR:
         i = 0
         times = [0,0,0,0,0,0,1,0,0,0,0,0]
