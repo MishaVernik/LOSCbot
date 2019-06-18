@@ -1,6 +1,8 @@
 import telebot
 import datetime
 import os
+
+import telegram as telegram
 from flask import Flask, request
 from random import randint
 import codecs
@@ -86,14 +88,18 @@ def get_text_messages(message):
     global_bots +=1
 
     if message.text == "Цитата":
-        bot.send_message(message.chat.id, QUOTES[randint(0,len(QUOTES) - 1)])
-    if message.text.find("Милость ") > 0:
-        print(str(CUTE_WORDS))
-        getLetter = message.text[message.text.find("Милость") + 7 + 2]
+        ct = QUOTES[randint(0,len(QUOTES) - 1)].find("»")
+        bot.send_message(message.chat.id,
+                         QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "<i>" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "</i>",
+                         parse_mode=telegram.ParseMode.HTML)
+
+    if message.text.find("Милость") > 0:
+        #print(str(CUTE_WORDS))
+        getLetter = message.text[message.text.find("Милость") + 7 + 1]
         if getLetter != '':
             bot.send_message(message.chat.id, CUTE_WORDS[ord(getLetter) - 1072][randint(0,CUTE_WORDS[ord(getLetter) - 1072] - 1)])
     if message.text == "Рота":
-        s = bot.send_message(message.chat.id, "подъем")
+        s = bot.send_message(message.chat.id, "<h1><b>подъем<b><h1>", parse_mode=telegram.ParseMode.HTML)
         #bot.send_message("435112571", str(s))
         bot.pin_chat_message(message.chat.id, s.message_id)
     if message.text == "Ну че":
@@ -107,9 +113,15 @@ def get_text_messages(message):
             ch = randint(0,28)
             cnt = randint(1,3)
             if cnt == 1:
-                bot.send_message(message.chat.id, "**" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "**")
+                bot.send_message(message.chat.id,
+                                 "<b>" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "</b>",
+                                 parse_mode=telegram.ParseMode.HTML
+                                 )
             elif cnt == 2:
-                bot.send_message(message.chat.id, "__" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "__")
+                bot.send_message(message.chat.id,
+                                 "<i>" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "</i>",
+                                 parse_mode=telegram.ParseMode.HTML
+                                 )
             elif cnt == 3:
                 bot.send_message(message.chat.id, CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)])
         else:
