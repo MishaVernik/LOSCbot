@@ -86,8 +86,8 @@ def get_text_messages(message):
     if message.text == "Цитата":
         ct = QUOTES[randint(0,len(QUOTES) - 1)].find("»")
         bot.send_message(message.chat.id,
-                         QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "\n__" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "__",
-                         parse_mode=telegram.MARKDOWN)
+                         QUOTES[randint(0,len(QUOTES) - 1)][:ct]+ "\n__" + QUOTES[randint(0,len(QUOTES) - 1)][ct+1:] + "__"
+                         )
     if message.text.find("Милость") >= 0:
         #print(str(CUTE_WORDS))
         try:
@@ -119,13 +119,11 @@ def get_text_messages(message):
             cnt = randint(1,3)
             if cnt == 1:
                 bot.send_message(message.chat.id,
-                                 "**" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "**",
-                                 parse_mode=telegram.ParseMode.MARKDOWN
+                                 "**" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "**"
                                  )
             elif cnt == 2:
                 bot.send_message(message.chat.id,
-                                 "__" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "__",
-                                 parse_mode=telegram.ParseMode.MARKDOWN
+                                 "__" + CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)] + "__"
                                  )
             elif cnt == 3:
                 bot.send_message(message.chat.id, CUTE_WORDS[ch][randint(0, len(CUTE_WORDS[ch]) - 1)])
@@ -147,8 +145,7 @@ def get_text_messages(message):
     print(str(global_bots) + " ----BOTS ")
     if message.text == "/help":
         bot.send_message(message.chat.id,
-                         "**Что можно?** \n__1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n 11. Рота \n12. Милость [любую букву алфавита(пример: Милость м)] \n13. Цитатa>__ \n За любыми идеями писать @MikeVernik",
-                         parse_mode=telegram.ParseMode.MARKDOWN)
+                         "**Что можно?** \n__1. мем\n2. на лицо пжлста\n3. Ну че\n4. Привет \n5. Прив \n6. Поддержи \n7. Милость \n8. Хочу милости\n9. Поддержки дай \n10. Хочу мем \n 11. Рота \n12. Милость [любую букву алфавита(пример: Милость м)] \n13. Цитатa__ \n За любыми идеями писать @MikeVernik")
     if message.text == "/start" and boolVAR:
         i = 0
         times = [1,1,1,1,1,1,1,1,1,0,0,0]
