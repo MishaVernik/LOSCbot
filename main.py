@@ -7,7 +7,7 @@ from flask import Flask, request
 from random import randint
 import codecs
 
-TOKEN = '830999920:AAFyyAO5ZIJ7sYQFJGQA9QmF201KWnObHNc'
+TOKEN = ':'
 bot = telebot.TeleBot(TOKEN)
 COMPLIMENTS = ["лучший", "ТОП", "ТОПЧИК", "огонь", "красавчик", "мыло", "ЛОСК", "классный", "садись на бутылку", "шутник"]
 NAMES = ["Миша", "Бодя", "Люся", "Варя", "Егор", "Артём", "Даня", "Саня", "Дима", "Женя", "Андрей", "Макс", "Ваня", "Маша", "Наташа", "Настя", "ЛОСК", "ЛОСК"
